@@ -12,6 +12,7 @@ import InboundCallIcon from "@/assets/icons/inbound-call.svg?react";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
+import { useOutbound } from "@/services/twilio-services";
 
 let callAcceptingTimerId: any;
 
@@ -28,6 +29,8 @@ type FormData = z.infer<typeof formSchema>;
 type CallType = "outbound" | "inbound" | null;
 
 function AgentCalls() {
+const {mutate : outBoundCall} = useOutbound()
+
  const [isCallModalOpen, setIsCallModalOpen] = useState(false);
  const [callType, setCallType] = useState<CallType>(null);
  const [callDuration, setCallDuration] = useState(0);
@@ -64,26 +67,27 @@ function AgentCalls() {
  };
 
  
-const normalizeNumber = (num: string) =>
-  num.replace(/\D/g, ""); 
+// const normalizeNumber = (num: string) =>
+//   num.replace(/\D/g, ""); 
 
 
  const onSubmit = (data: FormData) => {
   console.log("Form submitted:", data);
 
+  outBoundCall({callTo: data.phoneNumber})
+
   // Dummy Simulation /////////////////////
 
-const normalized = normalizeNumber(data.phoneNumber);
-const existing: string[] = JSON.parse(localStorage.getItem("outboundCalls") || "[]");
+// const normalized = normalizeNumber(data.phoneNumber);
+// const existing: string[] = JSON.parse(localStorage.getItem("outboundCalls") || "[]");
 
-if (!existing.includes(normalized)) {
-  existing.push(normalized);
-  localStorage.setItem("outboundCalls", JSON.stringify(existing));
-}
-
+// if (!existing.includes(normalized)) {
+//   existing.push(normalized);
+//   localStorage.setItem("outboundCalls", JSON.stringify(existing));
+// }
 
   /////////////////////////////////////
-  console.log("Existing phone numbers", existing)
+  // console.log("Existing phone numbers", existing)
   setCallType("outbound");
   setIsCallModalOpen(true);
   setCallDuration(0);

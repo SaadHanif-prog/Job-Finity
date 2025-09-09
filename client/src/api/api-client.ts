@@ -29,8 +29,8 @@ const handleLogout = () => {
 export const apiClient = axios.create({
  baseURL:
   import.meta.env.VITE_NODE_ENV === "development"
-   ? "http://localhost:3500"
-   : "https://ferry-booker-be.vercel.app",
+   ? "http://localhost:5000"
+   : "https://job-finity.vercel.app",
  withCredentials: true,
 });
 
@@ -39,8 +39,8 @@ export const apiClientWithAuth = (token: string, baseUrl?: string, withCredentia
   baseURL: baseUrl
    ? baseUrl
    : import.meta.env.VITE_NODE_ENV === "development"
-     ? "http://localhost:3500"
-     : "https://ferry-booker-be.vercel.app",
+     ? "http://localhost:5000"
+     : "https://job-finity.vercel.app",
   withCredentials: withCredentials,
  });
 

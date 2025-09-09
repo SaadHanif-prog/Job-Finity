@@ -8,10 +8,10 @@ const client = twilio(accountSid, authToken);
 // Handle outbound calls
 const outbound = asyncHandler(async (req, res) => {
   try {
-    const { to } = req.body;
+    const { callTo } = req.body;
 
     const call = await client.calls.create({
-      to,
+      callTo,
       from: process.env.TWILIO_PHONE_NUMBER,
       url: `${process.env.BASE_URL}/api/v1/twilio/voice-response`,
     });
