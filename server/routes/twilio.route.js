@@ -7,3 +7,5 @@ const { inbound, outbound, voiceResponse } = require("../controllers/twilio.cont
 router.post("/inbound", inbound )
 router.post("/outbound", outbound )
 router.post("/voice-response", voiceResponse)
+
+module.exports = router;
